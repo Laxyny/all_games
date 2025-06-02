@@ -1,0 +1,50 @@
+<turbo-frame id="review-form">
+	<div class="container mb-8 px-5 mx-auto max-w-2xl ">
+		{% if review.id %}
+			<div class="p-4 mb-5 text-sm text-blue-100 rounded-lg bg-gray-700 dark:bg-gray-800 dark:text-blue-500" role="alert">
+				<span class="font-medium">Thanks for the review!</span>
+			</div>
+		{% else %}
+			<form method="post" action="{{ path('app_review_form', { id: gameId }) }}" class="text-white bg-gray-800 p-8 rounded-lg" data-turbo-frame="review-form">
+				<div class="mb-4">
+					<label for="{{ form.comment.vars.id }}" class="block text-white font-semibold mb-2">
+						Your review
+					</label>
+					{{ form_widget(form.comment) }}
+				</div>
+				<div class="mb-4">
+					{% if form_errors(form.review) %}
+						<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+							{{ form_errors(form.review) }}
+						</div>
+					{% endif %}
+					<span class="block text-white font-semibold mb-2">
+						Do you recommend this game?
+					</span>
+					<div class="flex space-x-2">
+						{% set yes_field = form.review[0] %}
+						{% set no_field = form.review[1] %}
+						<input type="radio" id="{{ yes_field.vars.id }}" name="{{ yes_field.vars.full_name }}" value="{{ yes_field.vars.value }}" class="hidden peer/yes" {% if yes_field.vars.checked %} checked {% endif %}/>
+						<label for="{{ yes_field.vars.id }}" class="flex items-center px-4 py-2 border border-gray-300 rounded cursor-pointer text-gray-700 hover:bg-blue-100 peer-checked/yes:bg-blue-500 peer-checked/yes:text-white peer-checked/yes:border-blue-500 transition-colors">
+							<svg class="w-5 h-5 mr-2" viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+							</svg>
+							Yes
+						</label>
+						<input type="radio" id="{{ no_field.vars.id }}" name="{{ no_field.vars.full_name }}" value="{{ no_field.vars.value }}" class="hidden peer/no" {% if no_field.vars.checked %} checked {% endif %}/>
+						<label for="{{ no_field.vars.id }}" class="flex items-center px-4 py-2 border border-gray-300 rounded cursor-pointer text-gray-700 hover:bg-blue-100 peer-checked/no:bg-blue-500 peer-checked/no:text-white peer-checked/no:border-blue-500 transition-colors">
+							<svg class="w-5 h-5 mr-2" viewbox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17"></path>
+							</svg>
+							No
+						</label>
+					</div>
+				</div>
+				{{ form_row(form._token) }}
+				<button type="submit" class="cursor-pointer px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+					Post review
+				</button>
+			</form>
+		{% endif %}
+	</div>
+</turbo-frame>

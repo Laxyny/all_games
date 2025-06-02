@@ -1,0 +1,34 @@
+<turbo-frame id="wishlist-button-{{ game.id }}">
+	{% if app.user %}
+		{% if wishlist %}
+			<form action="{{ path('app_game_wishlist_toggle', { id: game.id }) }}" method="POST" data-turbo-frame="wishlist-button-{{ game.id }}">
+				<div class="relative inline-block group">
+					<button class="inline-flex items-center rounded-md bg-blue-500/50 px-3 py-2
+							text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2
+							focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+						<svg class="mr-1.5 -ml-0.5 size-5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+							<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8
+								10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1
+								1.05-.143Z" clip-rule="evenodd"></path>
+						</svg>
+						Dans la liste de souhait</button>
+					<!-- Tooltip -->
+					<div class="absolute left-1/2 bottom-full mb-2 w-max -translate-x-1/2 rounded
+							bg-gray-700 px-2 py-1 text-xs text-white opacity-0 transition-opacity duration-300
+							group-hover:opacity-100">
+						Supprimer de la liste de souhait
+					</div>
+				</div>
+			</form>
+		{% else %}
+			<form action="{{ path('app_game_wishlist_toggle', { id: game.id }) }}" method="POST" data-turbo-frame="wishlist-button-{{ game.id }}">
+				<button class="inline-flex items-center rounded-md bg-blue-500/50 px-3 py-2 text-sm
+						font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2
+						focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+					Ajouter à la liste de souhait</button>
+			</form>
+		{% endif %}
+	{% else %}
+		Se connecter pour ajouter à la liste de souhait
+	{% endif %}
+</turbo-frame>

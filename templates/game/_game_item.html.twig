@@ -1,0 +1,17 @@
+<div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+	<div class="rounded-lg h-64 overflow-hidden">
+		<img src="{% if game.imageName %}{{ vich_uploader_asset(game, 'imageFile') }}{% else %}https://dummyimage.com/1205x505{% endif %}" class="object-cover object-center h-full
+			w-full" alt="{{ game.name }}">
+	</div>
+
+	<h2 class="text-xl font-medium title-font text-white mt-5">{{ game.name}}</h2>
+
+	<p class="text-base leading-relaxed mt-2">{{ game.description|slice(0, 100) }}...</p>
+
+	<a href="{{ path('app_game_show', {'id': game.id}) }}" class="text-indigo-400 inline-flex items-center mt-3">Learn More
+		<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewbox="0 0 24
+											24">
+			<path d="M5 12h14M12 5l7 7-7 7"></path>
+		</svg>
+	</a>
+</div>
